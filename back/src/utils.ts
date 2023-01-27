@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import { Skill } from "./entity/Skill";
 import { Wilder } from "./entity/Wilder";
 import { Grade } from "./entity/Grade";
+import { User } from "./entity/User";
 
 const dataSource = new DataSource({
   type: "postgres",
@@ -11,8 +12,7 @@ const dataSource = new DataSource({
   password: "example",
   database: "postgres",
   synchronize: true,
-  entities: [Wilder, Skill, Grade],
-  logging: ["query", "error"],
+  entities: [Wilder, Skill, Grade, User],
 });
 
 export default dataSource;

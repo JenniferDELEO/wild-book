@@ -13,12 +13,14 @@ services:
 
   backend:
     build: ./back
+    env_file:
+      - .env
     volumes:
       - ./back/src:/app/src
     ports:
-      - 5000:5000
+      - 5001:5000
     healthcheck:
-      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5000'' --data ''{"query":"query { __typename }"}'' || exit 1'
+      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5000'' --data ''{"query":"query { __typename }"}'
       interval: 5s
       timeout: 5s
       retries: 10
@@ -31,7 +33,7 @@ services:
     volumes:
       - ./front/src:/app/src
     ports:
-      - 3000:3000
+      - 3001:3000
     depends_on:
       backend:
         condition: service_healthy
@@ -40,7 +42,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8081:8080
+      - 8080:8080
     depends_on:
       db:
         condition: service_healthy
